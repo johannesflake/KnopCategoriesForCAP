@@ -1,6 +1,3 @@
-LoadPackage("LinearAlgebra");
-
-
 ConstructPreKnopEnvelope := function(degreeFunction)
 
 local PreKnopEnvelope;

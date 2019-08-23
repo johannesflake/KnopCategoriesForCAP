@@ -81,7 +81,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">= 4.9",
-  NeededOtherPackages := [ [ "CAP", ">= 2019.08.10" ] ],
+  NeededOtherPackages := [ [ "CAP", ">= 2019.08.10" ], ["RingsForHomalg", ">= 2018.04.04"] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),

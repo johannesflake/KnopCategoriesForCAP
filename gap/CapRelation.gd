@@ -1,5 +1,3 @@
-LoadPackage("CAP");
-
 DeclareCategory("IsCapRelation", IsList);
 DeclareRepresentation("IsCapRelationRep", IsCapRelation and IsAttributeStoringRep, []);
 CapRelationType := NewType(NewFamily("TheFamilyOfCAPRelations"), IsCapRelationRep);

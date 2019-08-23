@@ -1,8 +1,3 @@
-
-LoadPackage("CAP");
-
-#########################################################
-
 DeclareCategory("IsPreKnopEnvelopeObject", IsCapCategoryObject);
 DeclareAttribute("UnderlyingObject", IsPreKnopEnvelopeObject);
 DeclareOperation("PreKnopEnvelopeObject", [IsCapCategoryObject]);
