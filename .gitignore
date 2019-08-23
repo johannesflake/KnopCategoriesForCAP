@@ -1,5 +1,5 @@
 /doc/*.xml
-
+/tst/knopcategoriesforcap*.tst
 /doc/chap*.html
 /doc/chap*.txt
 /doc/*.css
