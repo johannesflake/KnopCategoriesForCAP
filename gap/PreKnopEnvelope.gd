@@ -4,5 +4,5 @@ DeclareOperation("PreKnopEnvelopeObject", [IsCapCategoryObject]);
 
 DeclareCategory("IsPreKnopEnvelopeMorphism", IsCapCategoryMorphism);
 DeclareAttribute("UnderlyingRelations", IsPreKnopEnvelopeMorphism);
-DeclareOperation("PreKnopEnvelopeMorphism", [IsRecord]);
+DeclareOperation("PreKnopEnvelopeMorphism", [IsList, IsList]);
 DeclareOperation("PreKnopEnvelopeMorphism", [IsCapRelation]);

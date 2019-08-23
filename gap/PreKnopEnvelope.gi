@@ -18,24 +18,28 @@ InstallMethod(PreKnopEnvelopeObject, [IsCapCategoryObject], function(obj)
   return res;
 end);
 
-InstallMethod(PreKnopEnvelopeMorphism, [IsRecord], function(rels)
+InstallMethod(PreKnopEnvelopeMorphism, [IsList, IsList], function(factors, elements)
     local res, rel;
     res := rec();
 
-    rel := rels.elements[1];
+    if Size(factors) < 1 or Size(factors) <> Size(elements) then
+      Error("<factors> and <elements> must be non-empty lists of the same size");
+    fi;
+
+    rel := elements[1];
 
     ObjectifyMorphismForCAPWithAttributes(
       res, PreKnopEnvelope,
       Source, PreKnopEnvelopeObject(Range(rel[1])),
       Range, PreKnopEnvelopeObject(Range(rel[2])),
-      UnderlyingRelations, rels
+      UnderlyingRelations, rec(factors := factors, elements := elements)
     );
 
     return res;
 end);
 
 InstallMethod(PreKnopEnvelopeMorphism, [IsCapRelation],
-  rel -> PreKnopEnvelopeMorphism(rec(factors:=[1], elements:=[rel]))
+  rel -> PreKnopEnvelopeMorphism([1], [rel])
 );
 
 InstallMethod( ViewObj, [IsPreKnopEnvelopeObject], function(o)
@@ -88,10 +92,10 @@ AddAdditionForMorphisms(PreKnopEnvelope, function(x, y)
         Error("<x> and <y> must have same source and range (as relations)");
     fi;
       
-    return PreKnopEnvelopeMorphism(rec(
-      factors := Concatenation(x.factors, y.factors),
-      elements := Concatenation(x.elements, y.elements)
-    ) );
+    return PreKnopEnvelopeMorphism(
+      Concatenation(x.factors, y.factors),
+      Concatenation(x.elements, y.elements)
+    );
 end);
 
 AddAdditiveInverseForMorphisms(PreKnopEnvelope, x -> (-1) * x);
@@ -114,6 +118,9 @@ InstallOtherMethod(\+, [IsPreKnopEnvelopeMorphism, IsCapRelation],
   {x,y} -> x + PreKnopEnvelopeMorphism(y)
 );
   
+InstallOtherMethod(\+, [IsCapRelation, IsPreKnopEnvelopeMorphism],
+  {x,y} -> PreKnopEnvelopeMorphism(x) + y
+);
 
 SetIsLinearCategoryOverCommutativeRing(PreKnopEnvelope, true);
 
