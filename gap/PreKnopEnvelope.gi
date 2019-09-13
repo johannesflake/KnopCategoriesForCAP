@@ -1,4 +1,4 @@
-ConstructPreKnopEnvelope := function(degreeFunction)
+ConstructPreKnopEnvelope := function(degreeFunction, terminalObject)
 
 local PreKnopEnvelope;
 
@@ -26,7 +26,7 @@ InstallMethod(PreKnopEnvelopeMorphism, [IsList, IsList], function(factors, eleme
       Error("<factors> and <elements> must be non-empty lists of the same size");
     fi;
 
-    rel := elements[1];
+    rel := UnderlyingMorphisms(elements[1]);
 
     ObjectifyMorphismForCAPWithAttributes(
       res, PreKnopEnvelope,
@@ -100,9 +100,11 @@ end);
 
 AddAdditiveInverseForMorphisms(PreKnopEnvelope, x -> (-1) * x);
 
-AddZeroObject(PreKnopEnvelope, PreKnopEnvelopeMorphism(
-  (m->CapRelation(m,m))( IdentityMorphism(TerminalObject())  )
-));
+#AddZeroObject(PreKnopEnvelope, {} -> PreKnopEnvelopeMorphism(
+#  (m->CapRelation(m,m))( IdentityMorphism(terminalObject)  )
+#));
+
+AddZeroObject(PreKnopEnvelope, {} -> PreKnopEnvelopeObject(terminalObject));
 
 AddIdentityMorphism(PreKnopEnvelope, x -> PreKnopEnvelopeMorphism(
   (m->CapRelation(m,m))( IdentityMorphism(UnderlyingObject(x)) )
@@ -110,7 +112,7 @@ AddIdentityMorphism(PreKnopEnvelope, x -> PreKnopEnvelopeMorphism(
 
 
 AddMultiplyWithElementOfCommutativeRingForMorphisms(PreKnopEnvelope, {r, m} ->
-  (rels -> PreKnopEnvelopeMorphism(rec(factors := r *rels.factors, elements := rels.elements)))
+  (rels -> PreKnopEnvelopeMorphism(r * rels.factors, rels.elements))
   (UnderlyingRelations(m))
 );
 
@@ -124,7 +126,7 @@ InstallOtherMethod(\+, [IsCapRelation, IsPreKnopEnvelopeMorphism],
 
 SetIsLinearCategoryOverCommutativeRing(PreKnopEnvelope, true);
 
-SetCommutativeRingOfLinearCategory(PreKnopEnvelope, HomalgFieldOfRationals);
+SetCommutativeRingOfLinearCategory(PreKnopEnvelope, HomalgFieldOfRationals());
 
 Finalize(PreKnopEnvelope);
 
