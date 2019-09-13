@@ -22,9 +22,10 @@ mor1 := PreKnopEnvelopeMorphism(rel1);;
 obj1 := PreKnopEnvelopeObject(V1);
 
 
-obj1 := AdditiveEnvelopeObject([obj1, obj1]);
-idemp := AdditiveEnvelopeMorphism([[id1, zero1], [zero1, zero1]]);
+obj1 := AdditiveEnvelopeObject([obj1, obj1]);;
+idemp := AdditiveEnvelopeMorphism([[id1, zero1], [zero1, zero1]]);;
 
 testObj1 := KaroubiEnvelopeObject(obj1, idemp);
+ViewObj(testObj1);
 testMor1 := KaroubiEnvelopeMorphism(idemp, idemp, idemp);
-
+ViewObj(testMor1);

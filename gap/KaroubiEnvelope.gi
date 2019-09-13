@@ -42,6 +42,7 @@ end);
 InstallMethod( ViewObj, [IsKaroubiEnvelopeObject], function(o)
   Print("An additive envelope object with underlying objects and idempotent: \n");
   ViewObj(UnderlyingObject(o));
+  Print("\n");
   ViewObj(UnderlyingIdempotent(o));
 end);
 
